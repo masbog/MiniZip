@@ -21,36 +21,36 @@ How To Add into Your Project
 How To Use
 ==========
 
-#import "ZipArchive.h" 
+	#import "ZipArchive.h" 
 
-/*at some method*/
-ZipArchive* za = [[ZipArchive alloc] init];
-if( [za UnzipOpenFile:[[NSBundle mainBundle] pathForResource:@"masbog" ofType:@"zip"]] )
-{
-	
-	NSString *strPath=[NSString stringWithFormat:@"%@/UnzippedFolder",[self getDocumentFileDirectory]];
-	//Delete all the previous files
-	NSFileManager *filemanager=[[NSFileManager alloc] init];
-	if ([filemanager fileExistsAtPath:strPath]) 
+	/*at some method*/
+	ZipArchive* za = [[ZipArchive alloc] init];
+	if( [za UnzipOpenFile:[[NSBundle mainBundle] pathForResource:@"masbog" ofType:@"zip"]] )
 	{
-		//Check if file exist	
-		NSError *error;
-		[filemanager removeItemAtPath:strPath error:&error];
-	}
-
-	filemanager=nil;
-	//start unzip
-	BOOL ret = [za UnzipFileTo:[NSString stringWithFormat:@"%@/",strPath] overWrite:YES];
-	if( NO==ret ){
-		// error handler here
-		UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error"
-													  message:@"An unknown error occured"
-													 delegate:self
-											cancelButtonTitle:@"OK"
-											otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-		alert=nil;
-	}
-	[za UnzipCloseFile];
-}			
+	
+		NSString *strPath=[NSString stringWithFormat:@"%@/UnzippedFolder",[self getDocumentFileDirectory]];
+		//Delete all the previous files
+		NSFileManager *filemanager=[[NSFileManager alloc] init];
+		if ([filemanager fileExistsAtPath:strPath]) 
+		{
+			//Check if file exist	
+			NSError *error;
+			[filemanager removeItemAtPath:strPath error:&error];
+		}
+	
+		filemanager=nil;
+		//start unzip
+		BOOL ret = [za UnzipFileTo:[NSString stringWithFormat:@"%@/",strPath] overWrite:YES];
+		if( NO==ret ){
+			// error handler here
+			UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error"
+														  message:@"An unknown error occured"
+														 delegate:self
+												cancelButtonTitle:@"OK"
+												otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+			alert=nil;
+		}
+		[za UnzipCloseFile];
+	}			
